@@ -1,7 +1,7 @@
 import { Injectable, NgZone, Optional } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
-import { SettingsConfig } from './settings.class';
+import { SettingsConfig } from './../settings.class';
 
 
 @Injectable()
@@ -62,7 +62,7 @@ export class ChromeStorage {
   clear(): Promise<boolean> {
     return new Promise((resolve, reject) => {
       if (chrome !== undefined && chrome.storage !== undefined) {
-        chrome.storage.sync.clear(/* String or Array */key, () => this.zone.run(() => {
+        chrome.storage.sync.clear(() => this.zone.run(() => {
           resolve(true);
         }));
       } else {

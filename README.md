@@ -13,7 +13,7 @@ Chrome extensions storage API simplified for Angular 2.
 In you main app module add `Ng2ChromeStorageModule` to imports with default settings defined in the class `SettingsConfig`:
 
 ```typescript
-import { ChromeStorage, ChromeStorageResolver } from './ng2-chrome-storage/ng2-chrome-storage.service';
+import { Ng2ChromeStorageModule } from './ng2-chrome-storage/src/ng2-chrome-storage.module';
 import { SettingsConfig } from './ng2-chrome-storage/settings.class';
 
 
@@ -26,7 +26,7 @@ import { SettingsConfig } from './ng2-chrome-storage/settings.class';
     HttpModule,
     Ng2ChromeStorageModule.forRoot(new SettingsConfig())
   ],
-  providers: [ChromeStorageResolver, ChromeStorage],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
@@ -65,7 +65,7 @@ Now simply use `ChromeStorage` service. It's `config` property holds the setting
 Example component:
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { ChromeStorage } from './../ng2-chrome-storage/ng2-chrome-storage.service';
+import { ChromeStorage } from './../ng2-chrome-storage/src/ng2-chrome-storage.service';
 
 @Component({
   selector: 'app-root-container',
@@ -106,7 +106,7 @@ Example form component:
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { ChromeStorage } from './../ng2-chrome-storage/ng2-chrome-storage.service';
+import { ChromeStorage } from './../ng2-chrome-storage/src/ng2-chrome-storage.service';
 
 @Component({
   selector: 'app-settings',

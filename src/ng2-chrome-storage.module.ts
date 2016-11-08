@@ -1,13 +1,13 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ChromeStorage } from './ng2-chrome-storage.service';
-import { SettingsConfig } from './settings.class';
+import { ChromeStorage, ChromeStorageResolver } from './ng2-chrome-storage.service';
+import { SettingsConfig } from './../settings.class';
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  providers: [ChromeStorage]
+  providers: [ChromeStorage, ChromeStorageResolver]
 })
 export class Ng2ChromeStorageModule {
 
