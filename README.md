@@ -4,10 +4,11 @@ Chrome extensions storage API simplified for Angular 2.
 - The [storage API](https://developer.chrome.com/extensions/storage) is mostly used for providing app settings to extensions's end users. 
 *e.g. In your weather extension, ask user for his location etc.*
 - **ng2-chrome-storage** makes settings available to your components by a simple API.
-- **Developer friendly**: Your extensions will work on your local environment as well by making use of browser's `localStorage`.
--  
+- Developer friendly: Your extensions will work on your local environment as well by making use of browser's `localStorage`.
 
-### Setup
+
+
+## Setup
 
 In you main app module add `Ng2ChromeStorageModule` to imports with default settings defined in the class `SettingsConfig`:
 
@@ -58,7 +59,7 @@ const routes: Routes = [
 export class AppRoutingModule {}
 ```
 
-### Usage
+## Usage
 
 Now simply use `ChromeStorage` service. It's `config` property holds the settings.
 Example component:
@@ -101,7 +102,7 @@ Subscribe to Change detection:
 
 ### Your App's Settings Page
 
-Example component:
+Example form component:
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
@@ -162,25 +163,21 @@ export class SettingsComponent implements OnInit {
 
 ### Methods:
 
-`setAll(settings: Object, key = this.storeKey): Promise<boolean>`
+- `setAll(settings: Object, key = this.storeKey): Promise<boolean>`
+  Save an object to the storage.
 
-⋅⋅⋅Save an object to the storage.
+- `getChrome(key: string, defaults = {}): Promise<any>`
+  Get object with a specific key and defaults.
 
-`getChrome(key: string, defaults = {}): Promise<any>`
+- `onChange(key = this.storeKey): Observable<any>`
+  Change detection on storage. Changes will be availabe in the `data` param of the subscribe method.
 
-⋅⋅⋅Get object with a specific key and defaults.
+- `remove(key: string): Promise<boolean>`
+  Remove a specific object by key.
 
-`onChange(key = this.storeKey): Observable<any>`
-
-⋅⋅⋅Change detection on storage. Changes will be availabe in the `data` param of the subscribe method.
-
-`remove(key: string): Promise<boolean>`
-
-⋅⋅⋅Remove a specific object by key.
-
-`clear(): Promise<boolean>`
-
-⋅⋅⋅Clear all the storage.
+- `clear(): Promise<boolean>`
+  Clear all the storage.
 
 
 ### Contributions are welcome!
+@hasanhameed07
