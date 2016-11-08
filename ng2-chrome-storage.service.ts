@@ -7,7 +7,7 @@ import { SettingsConfig } from './settings.class';
 @Injectable()
 export class ChromeStorage {
   storeKey = 'hhappsettings'; // chrome storage key
-  config: SettingsConfig;
+  config: SettingsConfig;     // holds settings
 
   constructor(private zone: NgZone, @Optional() _settings: SettingsConfig) {
     if (_settings) {
@@ -17,7 +17,7 @@ export class ChromeStorage {
     }
   }
 
-
+  // to be used inside a resolver
   load() {
     return this.getChrome(this.storeKey, this.config).then((data: SettingsConfig) => {
       this.config = data;
@@ -25,7 +25,8 @@ export class ChromeStorage {
     });
   }
 
-  setAll(settings: Object, key = this.storeKey): Promise<any> {
+  // save an object
+  setAll(settings: Object, key = this.storeKey): Promise<boolean> {
     return new Promise((resolve, reject) => {
       if (chrome !== undefined && chrome.storage !== undefined) {
         let saveObj = {};
@@ -38,6 +39,34 @@ export class ChromeStorage {
         localStorage.setItem(key, JSON.stringify(settings));
         // hack to resolve storage change event on the same window
         window.dispatchEvent( new Event('storage') );
+        resolve(true);
+      }
+    });
+  }
+
+  // remove a key
+  remove(key: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      if (chrome !== undefined && chrome.storage !== undefined) {
+        chrome.storage.sync.remove(/* String or Array */key, () => this.zone.run(() => {
+          resolve(true);
+        }));
+      } else {
+        localStorage.removeItem(key);
+        resolve(true);
+      }
+    });
+  }
+
+  // clears the storage
+  clear(): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      if (chrome !== undefined && chrome.storage !== undefined) {
+        chrome.storage.sync.clear(/* String or Array */key, () => this.zone.run(() => {
+          resolve(true);
+        }));
+      } else {
+        localStorage.clear();
         resolve(true);
       }
     });
