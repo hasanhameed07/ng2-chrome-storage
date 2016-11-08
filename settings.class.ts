@@ -1,7 +1,5 @@
+// You may put your defaults here
 export class SettingsConfig {
     backgroundImage: true;
-    translation: 'ur.jalandhry';
-    showEnglish: true;
-    userLocation: 'Karachi, Pakistan';
-    userPrayerMethod: 1;
+    userLocation: 'Karachi, Pakistan'
 };
