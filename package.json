@@ -19,10 +19,11 @@
     "angular2",
     "ng2"
   ],
-  "author": "Hasan Hameed",
+  "author": "Hasan Hameed <hasan.hameed07@gmail.com> (http://hasanhameed.com/)",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/hasanhameed07/ng2-chrome-storage/issues"
+    "url": "https://github.com/hasanhameed07/ng2-chrome-storage/issues",
+    "email" : "hasan.hameed07@gmail.com"
   },
   "homepage": "https://github.com/hasanhameed07/ng2-chrome-storage#readme",
   "dependencies": {

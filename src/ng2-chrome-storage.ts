@@ -1,8 +1,12 @@
+/*
+ * ng2-chrome-storage
+ * @author Hasan Hameed <hasan.hameed07@gmail.com>
+ * Url: https://github.com/hasanhameed07/ng2-chrome-storage.git
+ */
 import { ModuleWithProviders, NgModule, APP_INITIALIZER } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChromeStorage } from './ng2-chrome-storage.service';
 import { Settings } from './settings.class';
-
 
 @NgModule({
   imports: [
