@@ -1,21 +1,24 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule, APP_INITIALIZER } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ChromeStorage, ChromeStorageResolver } from './ng2-chrome-storage.service';
-import { SettingsConfig } from './../settings.class';
+import { ChromeStorage } from './ng2-chrome-storage.service';
+import { Settings } from './settings.class';
+
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  providers: [ChromeStorage, ChromeStorageResolver]
+  providers: [
+  ChromeStorage,
+  { provide: APP_INITIALIZER, useFactory: (config: ChromeStorage) => () => config.load(), deps: [ChromeStorage], multi: true }  ]
 })
 export class Ng2ChromeStorageModule {
 
-  static forRoot(config: SettingsConfig): ModuleWithProviders {
+  static forRoot(config: Settings): ModuleWithProviders {
     return {
       ngModule: Ng2ChromeStorageModule,
       providers: [
-        {provide: SettingsConfig, useValue: config }
+        {provide: Settings, useValue: config }
       ]
     };
   }

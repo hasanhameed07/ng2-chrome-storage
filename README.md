@@ -3,18 +3,33 @@ Chrome extensions storage API simplified for Angular 2.
 
 - The [storage API](https://developer.chrome.com/extensions/storage) is mostly used for providing app settings to extensions's end users. 
 *e.g. In your weather extension, ask user for his location etc.*
-- **ng2-chrome-storage** makes settings available to your components by a simple API.
+- **ng2-chrome-storage** makes settings available to your components by a simple API, they are loaded before anything is initialized.
 - Developer friendly: Your extensions will work on your local environment as well by making use of browser's `localStorage`.
 
 
 
 ## Setup
 
-In you main app module add `Ng2ChromeStorageModule` to imports with default settings defined in the class `SettingsConfig`:
+Create your own `settings.class.ts` file to represent the default settings:
+
+
+```typescript
+import { Settings } from './../ng2-chrome-storage/src/settings.class';
+
+export class SettingsConfig extends Settings {
+  storeKey:string = 'myappstoragekey';  // identifier to be used as a key for storage
+  data = {
+    backgroundImage: true,
+    // .. more settings
+  };
+};
+```
+
+In you main app module add `Ng2ChromeStorageModule` and pass your default settings to it:
 
 ```typescript
 import { Ng2ChromeStorageModule } from './ng2-chrome-storage/src/ng2-chrome-storage.module';
-import { SettingsConfig } from './ng2-chrome-storage/settings.class';
+import { SettingsConfig } from './settings.class';
 
 
 @NgModule({
@@ -32,32 +47,7 @@ import { SettingsConfig } from './ng2-chrome-storage/settings.class';
 export class AppModule { }
 ```
 
-Resolve the settings in your route configration using `ChromeStorageResolver`. This will make all settings available in your components:
-Example routing module:
-```typescript
-const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'app',
-    pathMatch: 'full'
-  },
-  {
-    path: 'app',
-    component: RootComponent,
-    resolve: {
-      settings: ChromeStorageResolver
-    }
-  }
-];
-@NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ],
-  providers: [{
-      provide: 'settings',
-      useValue: ChromeStorageResolver}]
-})
-export class AppRoutingModule {}
-```
+That is it! Rest is handled by the module.
 
 ## Usage
 
@@ -76,6 +66,8 @@ export class RootComponent implements OnInit {
   backgroundImage: boolean;
 
   constructor(private _settings: ChromeStorage) {
+    // loaded settings also available here
+    // good practice to keep this clean
   }
 
   ngOnInit() {
@@ -180,4 +172,5 @@ export class SettingsComponent implements OnInit {
 
 
 ### Contributions are welcome!
-@hasanhameed07
+
+**hasan.hameed07@gmail.com**

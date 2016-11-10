@@ -1,25 +1,22 @@
 import { Injectable, NgZone, Optional } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
-import { SettingsConfig } from './../settings.class';
+import { Settings } from './settings.class';
 
 
 @Injectable()
 export class ChromeStorage {
-  storeKey = 'hhappsettings'; // chrome storage key
-  config: SettingsConfig;     // holds settings
+  storeKey = ''; // chrome storage key
+  config: any;     // holds settings
 
-  constructor(private zone: NgZone, @Optional() _settings: SettingsConfig) {
-    if (_settings) {
-      this.config = _settings;
-    } else {
-      this.config = new SettingsConfig();
-    }
+  constructor(private zone: NgZone, @Optional() _settings: Settings) {
+    let usethisSettings = (_settings)? _settings : new Settings();
+    this.config = usethisSettings.data;
+    this.storeKey = usethisSettings.storeKey;
   }
 
   // to be used inside a resolver
   load() {
-    return this.getChrome(this.storeKey, this.config).then((data: SettingsConfig) => {
+    return this.getChrome(this.storeKey, this.config).then((data: any) => {
       this.config = data;
       return data;
     });
@@ -117,13 +114,4 @@ export class ChromeStorage {
     });
   }
 
-}
-
-@Injectable()
-export class ChromeStorageResolver implements Resolve<any> {
-  constructor(private _settings: ChromeStorage) { }
-
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): any {
-    return this._settings.load();
-  }
 }
