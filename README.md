@@ -10,6 +10,10 @@ Chrome extensions storage API simplified for Angular 2.
 
 ## Setup
 
+```
+npm install --save ng2-chrome-storage
+```
+
 Create your own `settings.class.ts` file to represent the default settings:
 
 
