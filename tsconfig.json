@@ -11,10 +11,17 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
+    "types": [],
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ngx-chrome-storage": [
+        "dist/ngx-chrome-storage/ngx-chrome-storage",
+        "dist/ngx-chrome-storage"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
